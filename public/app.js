@@ -7,30 +7,113 @@ var app = Vue.createApp({
       grid_height: 20,
       blocks: ["O", "I", "T", "L", "J", "S", "Z"],
       grid: [],
+      board_blocks: [],
     };
   },
   methods: {
     getRandomShape() {
-      let block_name = this.blocks[Math.floor(Math.random() * 7)];
-      switch (block_name) {
-        case "O":
-          return this.o_block;
-        case "I":
-          return this.i_block;
-        case "T":
-          return this.t_block;
-        case "L":
-          return this.l_block;
-        case "J":
-          return this.j_block;
-        case "S":
-          return this.s_block;
-        case "Z":
-          return this.z_block;
-      }
+      return this.blocks[Math.floor(Math.random() * 7)];
     },
     spawnBlock() {
-      let block = getRandomShape();
+      let block = this.getRandomShape();
+      console.log(block);
+      switch (block) {
+        case "O":
+          var block_dict = {
+            name: block,
+            position1: [4, 0],
+            position2: [5, 0],
+            position3: [4, 1],
+            position4: [5, 1],
+          };
+          this.board_blocks.push(block_dict);
+          break;
+        case "I":
+          var block_dict = {
+            name: block,
+            position1: [3, 0],
+            position2: [4, 0],
+            position3: [5, 0],
+            position4: [6, 0],
+          };
+          this.board_blocks.push(block_dict);
+          break;
+        case "T":
+          var block_dict = {
+            name: block,
+            position1: [3, 1],
+            position2: [4, 1],
+            position3: [5, 1],
+            position4: [4, 0],
+          };
+          this.board_blocks.push(block_dict);
+          break;
+        case "L":
+          var block_dict = {
+            name: block,
+            position1: [3, 0],
+            position2: [4, 0],
+            position3: [5, 0],
+            position4: [5, 1],
+          };
+          this.board_blocks.push(block_dict);
+          break;
+        case "J":
+          var block_dict = {
+            name: block,
+            position1: [3, 0],
+            position2: [3, 1],
+            position3: [4, 1],
+            position4: [5, 1],
+          };
+          this.board_blocks.push(block_dict);
+          break;
+        case "S":
+          var block_dict = {
+            name: block,
+            position1: [3, 1],
+            position2: [4, 1],
+            position3: [4, 0],
+            position4: [5, 0],
+          };
+          this.board_blocks.push(block_dict);
+          break;
+        case "Z":
+          var block_dict = {
+            name: block,
+            position1: [3, 0],
+            position2: [4, 0],
+            position3: [4, 1],
+            position4: [5, 1],
+          };
+          this.board_blocks.push(block_dict);
+          break;
+      }
+    },
+    pieceHere(index1, index2) {
+      for (let i = 0; i < this.board_blocks.length; i++) {
+        if (
+          index1 == this.board_blocks[i].position1[0] &&
+          index2 == this.board_blocks[i].position1[1]
+        ) {
+          return true;
+        } else if (
+          index1 == this.board_blocks[i].position2[0] &&
+          index2 == this.board_blocks[i].position2[1]
+        ) {
+          return true;
+        } else if (
+          index1 == this.board_blocks[i].position3[0] &&
+          index2 == this.board_blocks[i].position3[1]
+        ) {
+          return true;
+        } else if (
+          index1 == this.board_blocks[i].position4[0] &&
+          index2 == this.board_blocks[i].position4[1]
+        ) {
+          return true;
+        }
+      }
     },
     tileClick: function (index1, index2) {
       console.log(`${index1}, ${index2}`);
@@ -45,10 +128,42 @@ var app = Vue.createApp({
         this.grid.push(grid_row);
       }
       this.game_started = true;
+      this.spawnBlock();
+    },
+    moveLeft: function () {
+      this.board_blocks[this.board_blocks.length - 1].position1[0] -= 1;
+      this.board_blocks[this.board_blocks.length - 1].position2[0] -= 1;
+      this.board_blocks[this.board_blocks.length - 1].position3[0] -= 1;
+      this.board_blocks[this.board_blocks.length - 1].position4[0] -= 1;
+    },
+    moveRight: function () {
+      this.board_blocks[this.board_blocks.length - 1].position1[0] += 1;
+      this.board_blocks[this.board_blocks.length - 1].position2[0] += 1;
+      this.board_blocks[this.board_blocks.length - 1].position3[0] += 1;
+      this.board_blocks[this.board_blocks.length - 1].position4[0] += 1;
+    },
+    moveDown: function () {
+      this.board_blocks[this.board_blocks.length - 1].position1[1] += 1;
+      this.board_blocks[this.board_blocks.length - 1].position2[1] += 1;
+      this.board_blocks[this.board_blocks.length - 1].position3[1] += 1;
+      this.board_blocks[this.board_blocks.length - 1].position4[1] += 1;
     },
   },
+  created: function () {
+    window.addEventListener("keydown", (e) => {
+      switch (e.key) {
+        case "ArrowLeft":
+          this.moveLeft();
+          break;
+        case "ArrowRight":
+          this.moveRight();
+          break;
+        case "ArrowDown":
+          this.moveDown();
+      }
+    });
+  },
   beforeMount() {
-    this.populateGrid();
     console.log(this.grid);
   },
 }).mount("#app");
