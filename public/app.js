@@ -1,86 +1,91 @@
-Vue.createApp({
-    data() {
-      return {
-        // Server Information
-        grid_width: 10,
-        grid_height: 20,
-        blocks: ["O", "I", "T", "L", "J", "S", "Z"],
-        grid: [],
-        o_block: [
-        [1, 1, 0, 0],
-        [1, 1, 0, 0],
+var app = Vue.createApp({
+  data() {
+    return {
+      // Server Information
+      game_started: false,
+      grid_width: 10,
+      grid_height: 20,
+      blocks: ["O", "I", "T", "L", "J", "S", "Z"],
+      grid: [],
+      current_block: 0,
+      o_block: [
+        [0, 1, 1, 0],
+        [0, 1, 1, 0],
         [0, 0, 0, 0],
         [0, 0, 0, 0],
-        ],
-        i_block: [
-        [1, 0, 0, 0],
-        [1, 0, 0, 0],
-        [1, 0, 0, 0],
-        [1, 0, 0, 0],
-        ],
-        t_block: [
+      ],
+      i_block: [
+        [1, 1, 1, 1],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+      ],
+      t_block: [
         [1, 1, 1, 0],
         [0, 1, 0, 0],
         [0, 0, 0, 0],
         [0, 0, 0, 0],
-        ],
-        l_block: [
+      ],
+      l_block: [
+        [0, 0, 0, 1],
+        [1, 1, 1, 1],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+      ],
+      j_block: [
         [1, 0, 0, 0],
-        [1, 0, 0, 0],
-        [1, 0, 0, 0],
-        [1, 1, 0, 0],
-        ],
-        j_block: [
-        [0, 1, 0, 0],
-        [0, 1, 0, 0],
-        [0, 1, 0, 0],
-        [1, 1, 0, 0],
-        ],
-        s_block: [
+        [1, 1, 1, 1],
+        [0, 0, 0, 0],
+        [0, 0, 0, 0],
+      ],
+      s_block: [
         [0, 1, 1, 0],
         [1, 1, 0, 0],
         [0, 0, 0, 0],
         [0, 0, 0, 0],
-        ],
-        z_block: [
+      ],
+      z_block: [
         [1, 1, 0, 0],
         [0, 1, 1, 0],
         [0, 0, 0, 0],
         [0, 0, 0, 0],
-        ],
-      };
-    },
-    methods: {
+      ],
+    };
+  },
+  methods: {
     getRandomShape() {
-        let block_name = this.blocks[Math.floor(Math.random() * 7)];
-        switch (block_name) {
-            case "O":
-            return this.o_block;
-            case "I":
-            return this.i_block;
-            case "T":
-            return this.t_block;
-            case "L":
-            return this.l_block;
-            case "J":
-            return this.j_block;
-            case "S":
-            return this.s_block;
-            case "Z":
-            return this.z_block;
-        }
-        },
-        spawnBlock() {
-        let block = getRandomShape();
-        },
-        tileClick: function (index1, index2) {
-        console.log(`${index1}, ${index2}`);
-        },
-        populateGrid() {
-        for (let i = 0; i < 200; i++) {
-            this.grid.push(0);
-        }
-        },
-    }
-  }).mount("#app");
-  
+      let block_name = this.blocks[Math.floor(Math.random() * 7)];
+      switch (block_name) {
+        case "O":
+          return this.o_block;
+        case "I":
+          return this.i_block;
+        case "T":
+          return this.t_block;
+        case "L":
+          return this.l_block;
+        case "J":
+          return this.j_block;
+        case "S":
+          return this.s_block;
+        case "Z":
+          return this.z_block;
+      }
+    },
+    spawnBlock() {
+      let block = this.getRandomShape();
+      this.current_block = block;
+      console.log(this.current_block);
+    },
+    tileClick: function (index1, index2) {
+      console.log(`${index1}, ${index2}`);
+    },
+    populateGrid() {
+      for (let i = 0; i < 200; i++) {
+        this.grid.push(0);
+      }
+      this.spawnBlock();
+      this.game_started = true;
+    },
+  },
+}).mount("#app");
