@@ -2,6 +2,7 @@ var app = Vue.createApp({
   data() {
     return {
       // Server Information
+      game_started: false,
       grid_width: 10,
       grid_height: 20,
       blocks: ["O", "I", "T", "L", "J", "S", "Z"],
