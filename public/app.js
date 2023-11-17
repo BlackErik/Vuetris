@@ -44,6 +44,7 @@ var app = Vue.createApp({
         }
         this.grid.push(grid_row);
       }
+      this.game_started = true;
     },
   },
   beforeMount() {
