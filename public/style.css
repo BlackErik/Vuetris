@@ -1,8 +1,32 @@
+#start_container {
+  display: flex;
+  justify-content: center;
+}
+
+#start_button {
+  background-color: white;
+  width: 5rem;
+  height: 2rem;
+  text-align: center;
+}
+
+#game_container {
+  display: flex;
+  justify-content: space-evenly;
+}
+
 #grid {
   display: flex;
-  margin: 0 auto;
   justify-content: center;
   align-items: center;
+}
+#hold_square {
+  width: 4rem;
+  height: 4rem;
+  background-color: #6272a4;
+}
+#hold_text {
+  color: white;
 }
 .tile {
   width: 2rem;
@@ -12,6 +36,16 @@
   display: flex;
   justify-content: center;
   align-items: center;
+}
+
+#upcoming_block {
+  width: 4rem;
+  height: 4rem;
+  background-color: #6272a4;
+}
+
+#upcoming_text {
+  color: white;
 }
 
 body {

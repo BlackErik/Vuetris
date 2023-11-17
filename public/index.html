@@ -5,17 +5,34 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <link rel="stylesheet" href="style.css" />
-    <title>Document</title>
+    <title>Vuetris</title>
   </head>
   <body>
     <div id="app">
-      <div id="grid">
-        <div v-for="(width, index1) in grid_width">
-          <div
-            v-for="(height, index2) in grid_height"
-            class="tile"
-            @click="tileClick(index1, index2)"
-          ></div>
+      <div id="start_container">
+        <button id="start_button" @click="populateGrid()" v-if="!game_started">
+          START
+        </button>
+      </div>
+      <div id="game_container">
+        <div id="hold_container">
+          <div id="hold_square"></div>
+          <h1 id="hold_text">Hold</h1>
+        </div>
+
+        <div id="grid">
+          <div v-for="(width, index1) in grid_width">
+            <div
+              v-for="(height, index2) in grid_height"
+              class="tile"
+              @click="tileClick(index1, index2)"
+            ></div>
+          </div>
+        </div>
+
+        <div id="upcoming_blocks_container">
+          <div id="upcoming_block"></div>
+          <h1 id="upcoming_text">Next</h1>
         </div>
       </div>
     </div>
