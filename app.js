@@ -74,5 +74,10 @@ var app = new Vue({
     tileClick: function (index1, index2) {
       console.log(`${index1}, ${index2}`);
     },
+    populateGrid() {
+      for (let i = 0; i < 200; i++) {
+        this.grid.push(0);
+      }
+    },
   },
 });
