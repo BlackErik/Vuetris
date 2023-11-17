@@ -52,6 +52,7 @@ body {
   background-color: #282a36;
 }
 
-.green {
-  background-color: green;
+.block {
+  width: 2rem;
+  height: 2rem;
 }

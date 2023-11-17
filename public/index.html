@@ -27,7 +27,11 @@
               class="tile"
               @click="tileClick(index1, index2)"
             >
-              <h1 v-show="pieceHere(index1, index2)">O</h1>
+              <div
+                class="block"
+                v-show="pieceHere(index1, index2)"
+                :style="{backgroundColor: getBlockColor(index1, index2)}"
+              ></div>
             </div>
           </div>
         </div>
