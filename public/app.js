@@ -14,34 +14,24 @@ var app = Vue.createApp({
   },
   methods: {
     getBlockColor(index1, index2) {
-      for (let i = 0; i < this.board_blocks.length; i++) {
-        if (
-          index1 == this.board_blocks[i].position1[0] &&
-          index2 == this.board_blocks[i].position1[1]
-        ) {
-          return this.board_blocks[i].color;
-        } else if (
-          index1 == this.board_blocks[i].position2[0] &&
-          index2 == this.board_blocks[i].position2[1]
-        ) {
-          return this.board_blocks[i].color;
-        } else if (
-          index1 == this.board_blocks[i].position3[0] &&
-          index2 == this.board_blocks[i].position3[1]
-        ) {
-          return this.board_blocks[i].color;
-        } else if (
-          index1 == this.board_blocks[i].position4[0] &&
-          index2 == this.board_blocks[i].position4[1]
-        ) {
-          return this.board_blocks[i].color;
-        }
-      }
+      const block = this.board_blocks.find(
+        (b) =>
+          (index1 === b.position1[0] && index2 === b.position1[1]) ||
+          (index1 === b.position2[0] && index2 === b.position2[1]) ||
+          (index1 === b.position3[0] && index2 === b.position3[1]) ||
+          (index1 === b.position4[0] && index2 === b.position4[1])
+      );
+
+      return block ? block.color : null;
+    },
+    removeBlocks(grid_row) {
+      console.log(this.grid[grid_row]);
     },
     getRandomShape() {
       return this.blocks[Math.floor(Math.random() * 7)];
     },
     nextBlock() {
+      this.setGrid();
       this.spawnBlock();
     },
     spawnBlock() {
@@ -182,6 +172,18 @@ var app = Vue.createApp({
     },
     moveDown: function () {
       this.setY(1);
+    },
+    setGrid: function () {
+      b = this.board_blocks[this.board_blocks.length - 1];
+      this.grid[b.position1[1]][b.position1[0]] = 1;
+      this.grid[b.position2[1]][b.position2[0]] = 1;
+      this.grid[b.position3[1]][b.position3[0]] = 1;
+      this.grid[b.position4[1]][b.position4[0]] = 1;
+      console.log(this.grid);
+      if (!this.grid[19].includes(0)) {
+        console.log("this row is full");
+        this.removeBlocks(19);
+      }
     },
     rotateRight: function () {
       switch (this.current_block) {
@@ -390,6 +392,7 @@ var app = Vue.createApp({
     });
   },
   beforeMount() {
+    // this.populateGrid();
     console.log(this.grid);
   },
 }).mount("#app");
