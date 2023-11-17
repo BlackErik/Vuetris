@@ -1,4 +1,4 @@
-Vue.createApp({
+var app = Vue.createApp({
     data() {
       return {
         // Server Information
@@ -6,48 +6,6 @@ Vue.createApp({
         grid_height: 20,
         blocks: ["O", "I", "T", "L", "J", "S", "Z"],
         grid: [],
-        o_block: [
-        [1, 1, 0, 0],
-        [1, 1, 0, 0],
-        [0, 0, 0, 0],
-        [0, 0, 0, 0],
-        ],
-        i_block: [
-        [1, 0, 0, 0],
-        [1, 0, 0, 0],
-        [1, 0, 0, 0],
-        [1, 0, 0, 0],
-        ],
-        t_block: [
-        [1, 1, 1, 0],
-        [0, 1, 0, 0],
-        [0, 0, 0, 0],
-        [0, 0, 0, 0],
-        ],
-        l_block: [
-        [1, 0, 0, 0],
-        [1, 0, 0, 0],
-        [1, 0, 0, 0],
-        [1, 1, 0, 0],
-        ],
-        j_block: [
-        [0, 1, 0, 0],
-        [0, 1, 0, 0],
-        [0, 1, 0, 0],
-        [1, 1, 0, 0],
-        ],
-        s_block: [
-        [0, 1, 1, 0],
-        [1, 1, 0, 0],
-        [0, 0, 0, 0],
-        [0, 0, 0, 0],
-        ],
-        z_block: [
-        [1, 1, 0, 0],
-        [0, 1, 1, 0],
-        [0, 0, 0, 0],
-        [0, 0, 0, 0],
-        ],
       };
     },
     methods: {
@@ -71,16 +29,25 @@ Vue.createApp({
         }
         },
         spawnBlock() {
-        let block = getRandomShape();
+          let block = getRandomShape();
         },
         tileClick: function (index1, index2) {
-        console.log(`${index1}, ${index2}`);
+          console.log(`${index1}, ${index2}`);
+          this.grid[index1][index2].class = 'green';
         },
         populateGrid() {
-        for (let i = 0; i < 200; i++) {
-            this.grid.push(0);
+          for (let i = 0; i < this.grid_height; i++) {
+            var grid_row = []
+            for (let i = 0; i < this.grid_width; i++) {
+                grid_row.push(0);
+            }
+            this.grid.push(grid_row)
+          }
         }
-        },
+    },
+    beforeMount() {
+      this.populateGrid()
+      console.log(this.grid)
     }
   }).mount("#app");
   
