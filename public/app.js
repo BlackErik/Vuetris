@@ -5,8 +5,12 @@ var app = Vue.createApp({
       game_started: false,
       grid_width: 10,
       grid_height: 20,
+      grid_num: 200,
       blocks: ["O", "I", "T", "L", "J", "S", "Z"],
       grid: [],
+      position: [],
+      current_block_position: null,
+      board_blocks: [],
     };
   },
   methods: {
@@ -29,23 +33,216 @@ var app = Vue.createApp({
           return this.z_block;
       }
     },
-    spawnBlock() {
-      let block = getRandomShape();
+    spawnBlockPosition() {
+      let block = this.getRandomShape();
+      console.log(block);
+      switch (block) {
+        case "O":
+          this.position = [[4, 0],[5, 0],[4, 1],[5, 1]];
+          break;
+        case "I":
+          this.position = [[3, 0],[4, 0],[5, 0],[6, 0]];
+          break;
+        case "T":
+          this.position = [[3, 1],[4, 1],[5, 1],[4, 0]]
+          break;
+        case "L":
+          this.position = [[3, 0],[4, 0],[5, 0],[5, 1]]
+          break;
+        case "J":
+          this.position = [[3, 0],[3, 1],[4, 1],[5, 1]]
+          break;
+        case "S":
+          this.position = [[3, 1],[4, 1],[4, 0],[5, 0]]
+          break;
+        case "Z":
+          this.position = [[3, 0],[4, 0],[4, 1],[5, 1]]
+          break;
+      }
     },
-    tileClick: function (index1, index2) {
-      console.log(`${index1}, ${index2}`);
-      this.grid[index1][index2].class = "green";
+    // generateBlock: function() {
+    //   this.position = [[4,0]]
+    //   this.grid[4][0].color = 'green';
+    // },
+    generateBlock: function() {
+      var number = Math.floor(Math.random() * 7)
+        if(number == 0){
+          this.position = [[4, 0],[5, 0],[4, 1],[5, 1]],
+          this.grid[this.position[0][0]][this.position[0][1]].color = 'green';
+          this.grid[this.position[1][0]][this.position[1][1]].color = 'green';
+          this.grid[this.position[2][0]][this.position[2][1]].color = 'green';
+          this.grid[this.position[3][0]][this.position[3][1]].color = 'green';
+        }
+        if(number == 1){
+          this.position = [[3, 0],[4, 0],[5, 0],[6, 0]]
+          this.grid[this.position[0][0]][this.position[0][1]].color = 'green';
+          this.grid[this.position[1][0]][this.position[1][1]].color = 'green';
+          this.grid[this.position[2][0]][this.position[2][1]].color = 'green';
+          this.grid[this.position[3][0]][this.position[3][1]].color = 'green';
+        }
+        if(number == 2){
+          this.position = [[3, 1],[4, 1],[5, 1],[4, 0]]
+          this.grid[this.position[0][0]][this.position[0][1]].color = 'green';
+          this.grid[this.position[1][0]][this.position[1][1]].color = 'green';
+          this.grid[this.position[2][0]][this.position[2][1]].color = 'green';
+          this.grid[this.position[3][0]][this.position[3][1]].color = 'green';
+        }
+        if(number == 3){
+          this.position = [[3, 0],[4, 0],[5, 0],[5, 1]]
+          this.grid[this.position[0][0]][this.position[0][1]].color = 'green';
+          this.grid[this.position[1][0]][this.position[1][1]].color = 'green';
+          this.grid[this.position[2][0]][this.position[2][1]].color = 'green';
+          this.grid[this.position[3][0]][this.position[3][1]].color = 'green';
+        }
+        if(number == 4){
+          this.position = [[3, 0],[3, 1],[4, 1],[5, 1]]
+          this.grid[this.position[0][0]][this.position[0][1]].color = 'green';
+          this.grid[this.position[1][0]][this.position[1][1]].color = 'green';
+          this.grid[this.position[2][0]][this.position[2][1]].color = 'green';
+          this.grid[this.position[3][0]][this.position[3][1]].color = 'green';
+        }
+        if(number == 5){
+          this.position = [[3, 1],[4, 1],[4, 0],[5, 0]]
+          this.grid[this.position[0][0]][this.position[0][1]].color = 'green';
+          this.grid[this.position[1][0]][this.position[1][1]].color = 'green';
+          this.grid[this.position[2][0]][this.position[2][1]].color = 'green';
+          this.grid[this.position[3][0]][this.position[3][1]].color = 'green';
+        }
+        if(number == 6){
+          this.position = [[3, 0],[4, 0],[4, 1],[5, 1]]
+          this.grid[this.position[0][0]][this.position[0][1]].color = 'green';
+          this.grid[this.position[1][0]][this.position[1][1]].color = 'green';
+          this.grid[this.position[2][0]][this.position[2][1]].color = 'green';
+          this.grid[this.position[3][0]][this.position[3][1]].color = 'green';
+        }
+    },
+    start: function() {
+      if (this.current_block == null) {
+        this.generateBlock()
+        this.current_block = !null
+      }
     },
     populateGrid() {
-      for (let i = 0; i < this.grid_height; i++) {
+      row_num = 0;
+      col_num = 0;
+      for (let i = 0; i < this.grid_width; i++) {
         var grid_row = [];
-        for (let i = 0; i < this.grid_width; i++) {
-          grid_row.push(0);
+        for (let j = 0; j < this.grid_height; j++) {
+          var tile = {
+            status:0,
+            class:'tile',
+            color:'OG_color',
+          }
+          grid_row.push(tile);
         }
         this.grid.push(grid_row);
       }
-      this.game_started = true;
     },
+    moveDown: function() {
+      for(let i=0;i<4;i++){
+        console.log(this.position[i][0])
+        this.grid[this.position[i][0]][this.position[i][1]].color = 'OG_color'
+        this.position[i][1] += 1
+      }
+      for(let i=0;i<4;i++){
+        this.grid[this.position[i][0]][this.position[i][1]].color = 'green'
+      }
+      this.check_location()
+    },
+    moveRight: function() {
+      for(let i=0;i<4;i++){
+        console.log(this.position[i][0])
+        this.grid[this.position[i][0]][this.position[i][1]].color = 'OG_color'
+        this.position[i][0] += 1
+      }
+      for(let i=0;i<4;i++){
+        this.grid[this.position[i][0]][this.position[i][1]].color = 'green'
+      }
+      this.check_location()
+    },
+    moveLeft: function() {
+      for(let i=0;i<4;i++){
+        this.grid[this.position[i][0]][this.position[i][1]].color = 'OG_color'
+        this.position[i][0] -= 1
+      }
+      for(let i=0;i<4;i++){
+        this.grid[this.position[i][0]][this.position[i][1]].color = 'green'
+      }
+      this.check_location()
+    },
+    check_location: function() {
+      change = true;
+      for(let i=0;i<4;i++){
+        if (this.position[i][1]==19){
+          change = false;
+        }else if(this.grid[this.position[i][0]][this.position[i][1]+1].status==1){
+          change = false;      
+        }
+      }
+      if (change == false){
+        for(let j=0;j<4;j++){
+          this.grid[this.position[j][0]][this.position[j][1]].status = 1;
+        }  
+        this.generateBlock()
+      }
+    },
+  },
+  created: function () {
+    window.addEventListener("keydown", (e) => {
+      switch (e.key) {
+        case "ArrowLeft":
+          change = true;
+          for(let i=0;i<4;i++){
+            if(this.position[i][0] == 0){
+              change = false;
+            }
+            if(this.grid[this.position[i][0]][this.position[i][1]].status == 1){
+              change = false;
+            }
+          }
+        if(change == true){
+          this.moveLeft();
+          break;
+        }else{
+          break
+        }
+        case "ArrowRight":
+          change = true;
+          for(let i=0;i<4;i++){
+            if(this.position[i][0] == 9){
+              change = false;
+            }
+            if(this.grid[this.position[i][0]][this.position[i][1]].status == 1){
+              change = false;
+            }
+          }
+        if(change == true){
+          this.moveRight();
+          break;
+        }else{
+          break
+        }
+        case "ArrowDown":
+          change = true;
+          for(let i=0;i<4;i++){
+            if(this.position[i][1] == 19){
+              change = false;
+            }
+            if(this.grid[this.position[i][0]][this.position[i][1]].status == 1){
+              change = false;
+            }
+          }
+        if(change == true){
+          this.moveDown();
+          break;
+        }else{
+          break
+        }
+        case "ArrowUp":
+          this.rotate();
+          break;
+      }
+    });
   },
   beforeMount() {
     this.populateGrid();

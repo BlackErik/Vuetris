@@ -10,7 +10,7 @@
   <body>
     <div id="app">
       <div id="start_container">
-        <button id="start_button" @click="start()">
+        <button id="start_button" @click="populateGrid()" v-if="!game_started">
           START
         </button>
       </div>
@@ -21,11 +21,15 @@
         </div>
 
         <div id="grid">
-          <div v-for="col in grid">
-            <div v-for="row in col"
-              :class="[row.class,row.color]"
-              @click="tileClick(row)"
-            ></div>
+          <div v-for="(width, index1) in grid_width">
+            <div
+              v-for="(height, index2) in grid_height"
+              class="tile"
+              @click="tileClick(index1, index2)"
+              v-show="pieceHere(index1, index2)"
+            >
+              <h1 v-show="pieceHere(index1, index2)">O</h1>
+            </div>
           </div>
         </div>
 

@@ -31,7 +31,6 @@
 .tile {
   width: 2rem;
   height: 2rem;
-  background-color: #6272a4;
   margin: 1px;
   display: flex;
   justify-content: center;
@@ -52,6 +51,15 @@ body {
   background-color: #282a36;
 }
 
+.OG_color {
+  background-color: #6272a4;
+}
+
+.blue {
+  background-color: rgb(42, 81, 255);
+}
+
 .green {
   background-color: green;
 }
+
