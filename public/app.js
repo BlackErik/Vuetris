@@ -7,6 +7,7 @@ var app = Vue.createApp({
       grid_width: 10,
       grid_height: 20,
       grid_num: 200,
+      points: 0,
       blocks: ["O", "I", "T", "L", "J", "S", "Z"],
       grid: [],
       position: [],
@@ -235,6 +236,7 @@ var app = Vue.createApp({
         }
       }
       if (count == 10) {
+        this.points += 100;
         for (let i = 0; i < 10; i++) {
           console.log(this.grid[i][grid_row]);
           this.grid[i][grid_row].status = 0;
@@ -372,6 +374,7 @@ var app = Vue.createApp({
     start: function () {
       // if (this.current_block == null) {
       this.grid = [];
+      this.points = 0;
       this.populateGrid();
       this.generateBlock();
       this.game_started = true;
