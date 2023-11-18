@@ -367,6 +367,8 @@ var app = Vue.createApp({
     },
     start: function () {
       // if (this.current_block == null) {
+      this.grid = [];
+      this.populateGrid();
       this.generateBlock();
       //   this.current_block = !null;
       // }
