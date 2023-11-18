@@ -10,9 +10,7 @@
   <body>
     <div id="app">
       <div id="start_container">
-        <button id="start_button" @click="start()">
-          START
-        </button>
+        <button id="start_button" @click="start()">START</button>
       </div>
       <div id="game_container">
         <div id="hold_container">
@@ -22,7 +20,8 @@
 
         <div id="grid">
           <div v-for="col in grid">
-            <div v-for="row in col"
+            <div
+              v-for="row in col"
               :class="[row.class,row.color]"
               @click="tileClick(row)"
             ></div>

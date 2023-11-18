@@ -223,6 +223,33 @@ var app = Vue.createApp({
     setOrientation: function (orientationValue) {
       this.position[4][0] = orientationValue;
     },
+    removeBlocks(grid_row) {
+      let count = 0;
+      for (let i = 0; i < 10; i++) {
+        if (this.grid[i][grid_row].status == 1) {
+          count++;
+        }
+      }
+      if (count == 10) {
+        for (let i = 0; i < 10; i++) {
+          console.log(this.grid[i][grid_row]);
+          this.grid[i][grid_row].status = 0;
+          this.grid[i][grid_row].color = "OG_color";
+          this.shiftRight(i, grid_row);
+        }
+      }
+    },
+    shiftRight(i, grid_row) {
+      var tile = {
+        status: 0,
+        class: "tile",
+        color: "OG_color",
+      };
+      this.grid[i].splice(grid_row, 1);
+      this.grid[i].unshift(tile);
+
+      // return this.grid[i];
+    },
     getRandomShape() {
       let block_name = this.blocks[Math.floor(Math.random() * 7)];
       switch (block_name) {
@@ -243,6 +270,10 @@ var app = Vue.createApp({
       }
     },
     generateBlock: function () {
+      for (let i = 0; i < 20; i++) {
+        this.removeBlocks(i);
+      }
+
       var number = Math.floor(Math.random() * 7);
       if (number == 0) {
         this.current_block = "O";
