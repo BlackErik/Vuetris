@@ -1,0 +1,104 @@
+* {
+    padding:0px;
+    margin:0px;
+    font-family: Arcade;
+   }
+
+@font-face {
+    font-family: "Tetris";
+    src: url("Tetris.ttf")
+  }
+
+@font-face {
+    font-family: "Arcade";
+    src: url("arcade.ttf")
+  }
+
+.V {
+  color: rgb(255, 0, 0);
+  animation: 2s infinite alternate ease-out breathing-color;  } 
+
+.U {
+  color: rgb(255, 136, 0);
+  animation: 2s infinite alternate ease-out breathing-color;
+}
+
+.E {
+  color: rgb(234, 255, 0);
+  animation: 2s infinite alternate ease-out breathing-color;
+}
+
+.T {
+  color: rgb(106, 255, 0);
+  animation: 2s infinite alternate ease-out breathing-color;
+}
+
+.R {
+  color: blue;
+  animation: 2s infinite alternate ease-out breathing-color;
+}
+
+.I {
+  color: rgb(179, 0, 255);
+  animation: 2s infinite alternate ease-out breathing-color;
+}
+
+.S {
+  color: rgb(255, 0, 191);
+  animation: 2s infinite alternate ease-out breathing-color;
+}
+
+.title {
+  justify-content: center;
+  display: flex;
+  font-family: 'Tetris';
+  text-align: center;
+  font-size: 2.5rem;
+  padding-top: 3rem;
+  padding-bottom: 1rem;
+}
+
+h1 {
+font-family: tetris;
+padding:0 15px 0 15px;
+}
+
+h1:hover {
+color: white;
+transition: .4s;
+}
+
+body {
+  background-image: url("tetris.jpg");
+  width: auto;
+  height: auto;
+}
+
+button {
+  padding:1rem 1rem 1rem 1rem;
+  background-color: rgb(224, 224, 224);
+  border-radius: 10px;
+}
+
+a {
+  text-decoration: none;
+}
+
+.button {
+  justify-content: center;
+  text-align: center;
+  align-items: center;
+}
+
+button:hover {
+  cursor: pointer;
+  background-color: white;
+  transition: .2s;
+}
+
+@keyframes breathing-color {
+  to
+  {
+      color: hsl(0, 0%, 100%);
+  }
+}

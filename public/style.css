@@ -1,3 +1,15 @@
+* {
+  padding:0px;
+  margin:0px;
+  font-family: Arcade;
+  color: black;
+ } 
+
+@font-face {
+  font-family: "Arcade";
+  src: url("arcade.ttf")
+}
+
 #start_container {
   display: flex;
   justify-content: center;
@@ -20,14 +32,17 @@
   justify-content: center;
   align-items: center;
 }
+
 #hold_square {
   width: 4rem;
   height: 4rem;
   background-color: #6272a4;
 }
+
 #hold_text {
   color: white;
 }
+
 .tile {
   width: 2rem;
   height: 2rem;
@@ -44,15 +59,15 @@
 }
 
 #upcoming_text {
-  color: white;
+  color: rgb(228, 228, 228);
 }
 
 body {
-  background-color: #282a36;
+  background-color: #fcfcfc;
 }
 
 .OG_color {
-  background-color: #6272a4;
+  background-color: #000000;
 }
 
 .blue {

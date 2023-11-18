@@ -3,11 +3,9 @@ var app = Vue.createApp({
     return {
       // Server Information
       game_started: false,
-      game_paused: false,
       grid_width: 10,
       grid_height: 20,
       grid_num: 200,
-      points: 0,
       blocks: ["O", "I", "T", "L", "J", "S", "Z"],
       grid: [],
       position: [],
@@ -18,9 +16,6 @@ var app = Vue.createApp({
   },
   methods: {
     rotate() {
-      if (this.game_started == false) {
-        return;
-      }
       console.log(this.position);
       switch (this.current_block) {
         case "I":
@@ -236,7 +231,6 @@ var app = Vue.createApp({
         }
       }
       if (count == 10) {
-        this.points += 100;
         for (let i = 0; i < 10; i++) {
           console.log(this.grid[i][grid_row]);
           this.grid[i][grid_row].status = 0;
@@ -372,13 +366,10 @@ var app = Vue.createApp({
       }
     },
     start: function () {
+      this.grid = []
+      this.populateGrid()
       // if (this.current_block == null) {
-      this.grid = [];
-      this.points = 0;
-      this.populateGrid();
       this.generateBlock();
-      this.game_started = true;
-      this.game_paused = false;
       //   this.current_block = !null;
       // }
     },
@@ -399,9 +390,6 @@ var app = Vue.createApp({
       }
     },
     moveDown: function () {
-      if (this.game_started == false) {
-        return;
-      }
       for (let i = 0; i < 4; i++) {
         console.log(this.position[i][0]);
         this.grid[this.position[i][0]][this.position[i][1]].color = "OG_color";
@@ -414,9 +402,6 @@ var app = Vue.createApp({
       this.check_location();
     },
     moveRight: function () {
-      if (this.game_started == false) {
-        return;
-      }
       for (let i = 0; i < 4; i++) {
         console.log(this.position[i][0]);
         this.grid[this.position[i][0]][this.position[i][1]].color = "OG_color";
@@ -429,9 +414,6 @@ var app = Vue.createApp({
       this.check_location();
     },
     moveLeft: function () {
-      if (this.game_started == false) {
-        return;
-      }
       for (let i = 0; i < 4; i++) {
         this.grid[this.position[i][0]][this.position[i][1]].color = "OG_color";
         this.position[i][0] -= 1;
@@ -464,18 +446,6 @@ var app = Vue.createApp({
   created: function () {
     window.addEventListener("keydown", (e) => {
       switch (e.key) {
-        case "Escape":
-          if (this.game_started == true) {
-            this.game_started = false;
-          } else {
-            this.game_started = true;
-          }
-          if (this.game_paused == true) {
-            this.game_paused = false;
-          } else if (this.game_paused == false) {
-            this.game_paused = true;
-          }
-          break;
         case "ArrowLeft":
           change = true;
           for (let i = 0; i < 4; i++) {
@@ -538,7 +508,7 @@ var app = Vue.createApp({
   },
   beforeMount() {
     this.populateGrid();
-    setInterval(this.moveDown, 500);
+    setInterval(this.moveDown, 700);
     console.log(this.grid);
   },
 }).mount("#app");
