@@ -2,7 +2,6 @@ var app = Vue.createApp({
   data() {
     return {
       // Server Information
-      bgColor: "#ffffff",
       game_started: false,
       grid_width: 10,
       grid_height: 20,
@@ -26,6 +25,28 @@ var app = Vue.createApp({
     },
     removeBlocks(grid_row) {
       console.log(this.grid[grid_row]);
+      for (block in this.board_blocks) {
+        console.log("hi");
+        console.log(this.board_blocks[block]);
+        if (this.board_blocks[block].position1[1] == grid_row) {
+          this.board_blocks[block].position1[1] = null;
+        }
+        if (this.board_blocks[block].position2[1] == grid_row) {
+          this.board_blocks[block].position2[1] = null;
+        }
+        if (this.board_blocks[block].position3[1] == grid_row) {
+          this.board_blocks[block].position3[1] = null;
+        }
+        if (this.board_blocks[block].position4[1] == grid_row) {
+          this.board_blocks[block].position4[1] = null;
+        }
+      }
+      this.setGridRowZero(grid_row);
+    },
+    setGridRowZero(grid_row) {
+      for (i in this.grid[grid_row]) {
+        this.grid[grid_row][i] = 0;
+      }
     },
     getRandomShape() {
       return this.blocks[Math.floor(Math.random() * 7)];
@@ -180,9 +201,11 @@ var app = Vue.createApp({
       this.grid[b.position3[1]][b.position3[0]] = 1;
       this.grid[b.position4[1]][b.position4[0]] = 1;
       console.log(this.grid);
-      if (!this.grid[19].includes(0)) {
-        console.log("this row is full");
-        this.removeBlocks(19);
+      for (grid in this.grid) {
+        if (!this.grid[grid].includes(0)) {
+          console.log("this row is full: ", grid);
+          this.removeBlocks(grid);
+        }
       }
     },
     rotateRight: function () {
