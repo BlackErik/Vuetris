@@ -506,6 +506,7 @@ var app = Vue.createApp({
   },
   beforeMount() {
     this.populateGrid();
+    setInterval(this.moveDown, 500);
     console.log(this.grid);
   },
 }).mount("#app");
