@@ -172,42 +172,52 @@ var app = Vue.createApp({
       this.setOGColor();
       this.position[0][0] += x_change;
       this.position[0][1] += y_change;
-      for (let i = 0; i < 4; i++) {
-        this.grid[this.position[i][0]][this.position[i][1]].color = "green";
-      }
+      // for (let i = 0; i < 4; i++) {
+      //   this.grid[this.position[i][0]][this.position[i][1]].color = "green";
+      // }
+      this.setColor();
       this.check_location();
     },
     setPosition2: function (x_change, y_change) {
       this.setOGColor();
       this.position[1][0] += x_change;
       this.position[1][1] += y_change;
-      for (let i = 0; i < 4; i++) {
-        this.grid[this.position[i][0]][this.position[i][1]].color = "green";
-      }
+      // for (let i = 0; i < 4; i++) {
+      //   this.grid[this.position[i][0]][this.position[i][1]].color = "green";
+      // }
+      this.setColor();
       this.check_location();
     },
     setPosition3: function (x_change, y_change) {
       this.setOGColor();
       this.position[2][0] += x_change;
       this.position[2][1] += y_change;
-      for (let i = 0; i < 4; i++) {
-        this.grid[this.position[i][0]][this.position[i][1]].color = "green";
-      }
+      // for (let i = 0; i < 4; i++) {
+      //   this.grid[this.position[i][0]][this.position[i][1]].color = "green";
+      // }
+      this.setColor();
       this.check_location();
     },
     setPosition4: function (x_change, y_change) {
       this.setOGColor();
       this.position[3][0] += x_change;
       this.position[3][1] += y_change;
-      for (let i = 0; i < 4; i++) {
-        this.grid[this.position[i][0]][this.position[i][1]].color = "green";
-      }
+      // for (let i = 0; i < 4; i++) {
+      //   this.grid[this.position[i][0]][this.position[i][1]].color = "green";
+      // }
+      this.setColor();
       this.check_location();
     },
     setOGColor: function () {
       for (let i = 0; i < 4; i++) {
         console.log(this.position[i][0]);
         this.grid[this.position[i][0]][this.position[i][1]].color = "OG_color";
+      }
+    },
+    setColor: function () {
+      for (let i = 0; i < 4; i++) {
+        this.grid[this.position[i][0]][this.position[i][1]].color =
+          this.current_block;
       }
     },
     setOrientation: function (orientationValue) {
@@ -241,58 +251,86 @@ var app = Vue.createApp({
           [4, 1],
           [5, 1],
         ]),
-          (this.grid[this.position[0][0]][this.position[0][1]].color = "green");
-        this.grid[this.position[1][0]][this.position[1][1]].color = "green";
-        this.grid[this.position[2][0]][this.position[2][1]].color = "green";
-        this.grid[this.position[3][0]][this.position[3][1]].color = "green";
+          (this.grid[this.position[0][0]][this.position[0][1]].color =
+            this.current_block);
+        this.grid[this.position[1][0]][this.position[1][1]].color =
+          this.current_block;
+        this.grid[this.position[2][0]][this.position[2][1]].color =
+          this.current_block;
+        this.grid[this.position[3][0]][this.position[3][1]].color =
+          this.current_block;
         this.current_block = "O";
       }
       if (number == 1) {
         this.position = [[3, 0], [4, 0], [5, 0], [6, 0], ["Horizontal"]];
-        this.grid[this.position[0][0]][this.position[0][1]].color = "green";
-        this.grid[this.position[1][0]][this.position[1][1]].color = "green";
-        this.grid[this.position[2][0]][this.position[2][1]].color = "green";
-        this.grid[this.position[3][0]][this.position[3][1]].color = "green";
+        this.grid[this.position[0][0]][this.position[0][1]].color =
+          this.current_block;
+        this.grid[this.position[1][0]][this.position[1][1]].color =
+          this.current_block;
+        this.grid[this.position[2][0]][this.position[2][1]].color =
+          this.current_block;
+        this.grid[this.position[3][0]][this.position[3][1]].color =
+          this.current_block;
         this.current_block = "I";
       }
       if (number == 2) {
         this.position = [[3, 1], [4, 1], [5, 1], [4, 0], ["0"]];
-        this.grid[this.position[0][0]][this.position[0][1]].color = "green";
-        this.grid[this.position[1][0]][this.position[1][1]].color = "green";
-        this.grid[this.position[2][0]][this.position[2][1]].color = "green";
-        this.grid[this.position[3][0]][this.position[3][1]].color = "green";
+        this.grid[this.position[0][0]][this.position[0][1]].color =
+          this.current_block;
+        this.grid[this.position[1][0]][this.position[1][1]].color =
+          this.current_block;
+        this.grid[this.position[2][0]][this.position[2][1]].color =
+          this.current_block;
+        this.grid[this.position[3][0]][this.position[3][1]].color =
+          this.current_block;
         this.current_block = "T";
       }
       if (number == 3) {
         this.position = [[3, 1], [4, 1], [5, 1], [5, 0], ["0"]];
-        this.grid[this.position[0][0]][this.position[0][1]].color = "green";
-        this.grid[this.position[1][0]][this.position[1][1]].color = "green";
-        this.grid[this.position[2][0]][this.position[2][1]].color = "green";
-        this.grid[this.position[3][0]][this.position[3][1]].color = "green";
+        this.grid[this.position[0][0]][this.position[0][1]].color =
+          this.current_block;
+        this.grid[this.position[1][0]][this.position[1][1]].color =
+          this.current_block;
+        this.grid[this.position[2][0]][this.position[2][1]].color =
+          this.current_block;
+        this.grid[this.position[3][0]][this.position[3][1]].color =
+          this.current_block;
         this.current_block = "L";
       }
       if (number == 4) {
         this.position = [[3, 0], [3, 1], [4, 1], [5, 1], ["0"]];
-        this.grid[this.position[0][0]][this.position[0][1]].color = "green";
-        this.grid[this.position[1][0]][this.position[1][1]].color = "green";
-        this.grid[this.position[2][0]][this.position[2][1]].color = "green";
-        this.grid[this.position[3][0]][this.position[3][1]].color = "green";
+        this.grid[this.position[0][0]][this.position[0][1]].color =
+          this.current_block;
+        this.grid[this.position[1][0]][this.position[1][1]].color =
+          this.current_block;
+        this.grid[this.position[2][0]][this.position[2][1]].color =
+          this.current_block;
+        this.grid[this.position[3][0]][this.position[3][1]].color =
+          this.current_block;
         this.current_block = "J";
       }
       if (number == 5) {
         this.position = [[3, 1], [4, 1], [4, 0], [5, 0], ["Horizontal"]];
-        this.grid[this.position[0][0]][this.position[0][1]].color = "green";
-        this.grid[this.position[1][0]][this.position[1][1]].color = "green";
-        this.grid[this.position[2][0]][this.position[2][1]].color = "green";
-        this.grid[this.position[3][0]][this.position[3][1]].color = "green";
+        this.grid[this.position[0][0]][this.position[0][1]].color =
+          this.current_block;
+        this.grid[this.position[1][0]][this.position[1][1]].color =
+          this.current_block;
+        this.grid[this.position[2][0]][this.position[2][1]].color =
+          this.current_block;
+        this.grid[this.position[3][0]][this.position[3][1]].color =
+          this.current_block;
         this.current_block = "S";
       }
       if (number == 6) {
         this.position = [[3, 0], [4, 0], [4, 1], [5, 1], ["Horizontal"]];
-        this.grid[this.position[0][0]][this.position[0][1]].color = "green";
-        this.grid[this.position[1][0]][this.position[1][1]].color = "green";
-        this.grid[this.position[2][0]][this.position[2][1]].color = "green";
-        this.grid[this.position[3][0]][this.position[3][1]].color = "green";
+        this.grid[this.position[0][0]][this.position[0][1]].color =
+          this.current_block;
+        this.grid[this.position[1][0]][this.position[1][1]].color =
+          this.current_block;
+        this.grid[this.position[2][0]][this.position[2][1]].color =
+          this.current_block;
+        this.grid[this.position[3][0]][this.position[3][1]].color =
+          this.current_block;
         this.current_block = "Z";
       }
     },
@@ -325,7 +363,8 @@ var app = Vue.createApp({
         this.position[i][1] += 1;
       }
       for (let i = 0; i < 4; i++) {
-        this.grid[this.position[i][0]][this.position[i][1]].color = "green";
+        this.grid[this.position[i][0]][this.position[i][1]].color =
+          this.current_block;
       }
       this.check_location();
     },
@@ -336,7 +375,8 @@ var app = Vue.createApp({
         this.position[i][0] += 1;
       }
       for (let i = 0; i < 4; i++) {
-        this.grid[this.position[i][0]][this.position[i][1]].color = "green";
+        this.grid[this.position[i][0]][this.position[i][1]].color =
+          this.current_block;
       }
       this.check_location();
     },
@@ -346,7 +386,8 @@ var app = Vue.createApp({
         this.position[i][0] -= 1;
       }
       for (let i = 0; i < 4; i++) {
-        this.grid[this.position[i][0]][this.position[i][1]].color = "green";
+        this.grid[this.position[i][0]][this.position[i][1]].color =
+          this.current_block;
       }
       this.check_location();
     },
