@@ -10,11 +10,20 @@
   <body>
     <div id="app">
       <div id="start_container">
-        <button id="start_button" @click="start()">START</button>
+        <button
+          id="start_button"
+          @click="start()"
+          v-if="!game_started && !game_paused"
+        >
+          START
+        </button>
+        <button id="start_button" @click="start()" v-if="game_paused">
+          RESTART
+        </button>
       </div>
       <div id="game_container">
         <div id="hold_container">
-          <div id="hold_square"></div>
+          <div id="hold_square">{{held_block_name}}</div>
           <h1 id="hold_text">Hold</h1>
         </div>
 
@@ -31,6 +40,7 @@
         <div id="upcoming_blocks_container">
           <div id="upcoming_block"></div>
           <h1 id="upcoming_text">Next</h1>
+          <div id="points_container">Points: {{points}}</div>
         </div>
       </div>
     </div>

@@ -1,13 +1,13 @@
 * {
-  padding:0px;
-  margin:0px;
+  padding: 0px;
+  margin: 0px;
   font-family: Arcade;
   color: black;
- } 
+}
 
 @font-face {
   font-family: "Arcade";
-  src: url("arcade.ttf")
+  src: url("arcade.ttf");
 }
 
 #start_container {
@@ -36,7 +36,11 @@
 #hold_square {
   width: 4rem;
   height: 4rem;
-  background-color: #6272a4;
+  color: white;
+  background-color: #000000;
+  text-align: center;
+  font-size: 3rem;
+  opacity: 50%;
 }
 
 #hold_text {
@@ -55,19 +59,30 @@
 #upcoming_block {
   width: 4rem;
   height: 4rem;
-  background-color: #6272a4;
+  background-color: #000000;
+  opacity: 50%;
 }
 
 #upcoming_text {
   color: rgb(228, 228, 228);
 }
 
+#points_container {
+  margin-top: 5rem;
+  color: white;
+  font-size: 1.25rem;
+}
+
 body {
   background-color: #fcfcfc;
+  background-image: url("./galaxy.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
 }
 
 .OG_color {
   background-color: #000000;
+  opacity: 50%;
 }
 
 .blue {
