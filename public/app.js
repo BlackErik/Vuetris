@@ -169,20 +169,46 @@ var app = Vue.createApp({
       }
     },
     setPosition1: function (x_change, y_change) {
+      this.setOGColor();
       this.position[0][0] += x_change;
       this.position[0][1] += y_change;
+      for (let i = 0; i < 4; i++) {
+        this.grid[this.position[i][0]][this.position[i][1]].color = "green";
+      }
+      this.check_location();
     },
     setPosition2: function (x_change, y_change) {
+      this.setOGColor();
       this.position[1][0] += x_change;
       this.position[1][1] += y_change;
+      for (let i = 0; i < 4; i++) {
+        this.grid[this.position[i][0]][this.position[i][1]].color = "green";
+      }
+      this.check_location();
     },
     setPosition3: function (x_change, y_change) {
+      this.setOGColor();
       this.position[2][0] += x_change;
       this.position[2][1] += y_change;
+      for (let i = 0; i < 4; i++) {
+        this.grid[this.position[i][0]][this.position[i][1]].color = "green";
+      }
+      this.check_location();
     },
     setPosition4: function (x_change, y_change) {
+      this.setOGColor();
       this.position[3][0] += x_change;
       this.position[3][1] += y_change;
+      for (let i = 0; i < 4; i++) {
+        this.grid[this.position[i][0]][this.position[i][1]].color = "green";
+      }
+      this.check_location();
+    },
+    setOGColor: function () {
+      for (let i = 0; i < 4; i++) {
+        console.log(this.position[i][0]);
+        this.grid[this.position[i][0]][this.position[i][1]].color = "OG_color";
+      }
     },
     setOrientation: function (orientationValue) {
       this.position[4][0] = orientationValue;
@@ -206,72 +232,6 @@ var app = Vue.createApp({
           return this.z_block;
       }
     },
-    spawnBlockPosition() {
-      let block = this.getRandomShape();
-      console.log(block);
-      switch (block) {
-        case "O":
-          this.position = [
-            [4, 0],
-            [5, 0],
-            [4, 1],
-            [5, 1],
-          ];
-          break;
-        case "I":
-          this.position = [
-            [3, 0],
-            [4, 0],
-            [5, 0],
-            [6, 0],
-          ];
-          break;
-        case "T":
-          this.position = [
-            [3, 1],
-            [4, 1],
-            [5, 1],
-            [4, 0],
-          ];
-          break;
-        case "L":
-          this.position = [
-            [3, 1],
-            [4, 1],
-            [5, 1],
-            [5, 0],
-          ];
-          break;
-        case "J":
-          this.position = [
-            [3, 0],
-            [3, 1],
-            [4, 1],
-            [5, 1],
-          ];
-          break;
-        case "S":
-          this.position = [
-            [3, 1],
-            [4, 1],
-            [4, 0],
-            [5, 0],
-          ];
-          break;
-        case "Z":
-          this.position = [
-            [3, 0],
-            [4, 0],
-            [4, 1],
-            [5, 1],
-          ];
-          break;
-      }
-    },
-    // generateBlock: function() {
-    //   this.position = [[4,0]]
-    //   this.grid[4][0].color = 'green';
-    // },
     generateBlock: function () {
       var number = Math.floor(Math.random() * 7);
       if (number == 0) {
