@@ -245,6 +245,7 @@ var app = Vue.createApp({
     generateBlock: function () {
       var number = Math.floor(Math.random() * 7);
       if (number == 0) {
+        this.current_block = "O";
         (this.position = [
           [4, 0],
           [5, 0],
@@ -259,9 +260,9 @@ var app = Vue.createApp({
           this.current_block;
         this.grid[this.position[3][0]][this.position[3][1]].color =
           this.current_block;
-        this.current_block = "O";
       }
       if (number == 1) {
+        this.current_block = "I";
         this.position = [[3, 0], [4, 0], [5, 0], [6, 0], ["Horizontal"]];
         this.grid[this.position[0][0]][this.position[0][1]].color =
           this.current_block;
@@ -271,9 +272,9 @@ var app = Vue.createApp({
           this.current_block;
         this.grid[this.position[3][0]][this.position[3][1]].color =
           this.current_block;
-        this.current_block = "I";
       }
       if (number == 2) {
+        this.current_block = "T";
         this.position = [[3, 1], [4, 1], [5, 1], [4, 0], ["0"]];
         this.grid[this.position[0][0]][this.position[0][1]].color =
           this.current_block;
@@ -283,9 +284,9 @@ var app = Vue.createApp({
           this.current_block;
         this.grid[this.position[3][0]][this.position[3][1]].color =
           this.current_block;
-        this.current_block = "T";
       }
       if (number == 3) {
+        this.current_block = "L";
         this.position = [[3, 1], [4, 1], [5, 1], [5, 0], ["0"]];
         this.grid[this.position[0][0]][this.position[0][1]].color =
           this.current_block;
@@ -295,9 +296,9 @@ var app = Vue.createApp({
           this.current_block;
         this.grid[this.position[3][0]][this.position[3][1]].color =
           this.current_block;
-        this.current_block = "L";
       }
       if (number == 4) {
+        this.current_block = "J";
         this.position = [[3, 0], [3, 1], [4, 1], [5, 1], ["0"]];
         this.grid[this.position[0][0]][this.position[0][1]].color =
           this.current_block;
@@ -307,9 +308,9 @@ var app = Vue.createApp({
           this.current_block;
         this.grid[this.position[3][0]][this.position[3][1]].color =
           this.current_block;
-        this.current_block = "J";
       }
       if (number == 5) {
+        this.current_block = "S";
         this.position = [[3, 1], [4, 1], [4, 0], [5, 0], ["Horizontal"]];
         this.grid[this.position[0][0]][this.position[0][1]].color =
           this.current_block;
@@ -319,9 +320,9 @@ var app = Vue.createApp({
           this.current_block;
         this.grid[this.position[3][0]][this.position[3][1]].color =
           this.current_block;
-        this.current_block = "S";
       }
       if (number == 6) {
+        this.current_block = "Z";
         this.position = [[3, 0], [4, 0], [4, 1], [5, 1], ["Horizontal"]];
         this.grid[this.position[0][0]][this.position[0][1]].color =
           this.current_block;
@@ -331,7 +332,6 @@ var app = Vue.createApp({
           this.current_block;
         this.grid[this.position[3][0]][this.position[3][1]].color =
           this.current_block;
-        this.current_block = "Z";
       }
     },
     start: function () {
