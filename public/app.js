@@ -9,11 +9,183 @@ var app = Vue.createApp({
       blocks: ["O", "I", "T", "L", "J", "S", "Z"],
       grid: [],
       position: [],
-      current_block_position: null,
+      currentBlock: '',
       board_blocks: [],
     };
   },
   methods: {
+    rotate() {
+      console.log(this.position);
+      switch (this.current_block) {
+        case "I":
+          this.rotateI();
+          break;
+        case "T":
+          this.rotateT();
+          break;
+        case "L":
+          this.rotateL();
+          break;
+        case "J":
+          this.rotateJ();
+          break;
+        case "S":
+          this.rotateS();
+          break;
+        case "Z":
+          this.rotateZ();
+          break;
+      }
+    },
+    rotateI() {
+      switch (this.position[4][0]) {
+        case "Horizontal":
+          this.setPosition1(1, -1);
+          this.setPosition3(-1, 1);
+          this.setPosition4(-2, 2);
+
+          this.check_location();
+          this.setOrientation("Vertical");
+          break;
+        case "Vertical":
+          this.setPosition1(-1, 1);
+          this.setPosition3(1, -1);
+          this.setPosition4(2, -2);
+
+          this.check_location();
+          this.setOrientation("Horizontal");
+          break;
+      }
+    },
+    rotateT() {
+      switch (this.position[4][0]) {
+        case "0":
+          this.setPosition4(1, 1);
+          this.setPosition1(1, -1);
+          this.setPosition3(-1, 1);
+
+          this.setOrientation("90");
+          break;
+
+        case "90":
+          this.setPosition1(-1, 1);
+          this.setOrientation("180");
+          break;
+
+        case "180":
+          this.setPosition4(-1, -1);
+          this.setOrientation("270");
+          break;
+
+        case "270":
+          this.setPosition3(1, -1);
+          this.setOrientation("0");
+          break;
+      }
+    },
+    rotateL() {
+      switch (this.position[4][0]) {
+        case "0":
+          this.setPosition1(1, -1);
+          this.setPosition3(-1, 1);
+          this.setPosition4(0, 2);
+          this.setOrientation("90");
+          break;
+        case "90":
+          this.setPosition1(1, 1);
+          this.setPosition3(-1, -1);
+          this.setPosition4(-2, 0);
+          this.setOrientation("180");
+          break;
+        case "180":
+          this.setPosition1(-1, 1);
+          this.setPosition3(1, -1);
+          this.setPosition4(0, -2);
+          this.setOrientation("270");
+          break;
+        case "270":
+          this.setPosition1(-1, -1);
+          this.setPosition3(1, 1);
+          this.setPosition4(2, 0);
+          this.setOrientation("0");
+          break;
+      }
+    },
+    rotateJ() {
+      switch (this.position[4][0]) {
+        case "0":
+          this.setPosition1(2, 0);
+          this.setPosition2(1, -1);
+          this.setPosition4(-1, 1);
+          this.setOrientation("90");
+          break;
+        case "90":
+          this.setPosition1(0, 2);
+          this.setPosition2(1, 1);
+          this.setPosition4(-1, -1);
+          this.setOrientation("180");
+          break;
+        case "180":
+          this.setPosition1(-2, 0);
+          this.setPosition2(-1, 1);
+          this.setPosition4(1, -1);
+          this.setOrientation("270");
+          break;
+        case "270":
+          this.setPosition1(0, -2);
+          this.setPosition2(-1, -1);
+          this.setPosition4(1, 1);
+          this.setOrientation("0");
+          break;
+      }
+    },
+    rotateS() {
+      switch (this.position[4][0]) {
+        case "Horizontal":
+          this.setPosition4(-2, 0);
+          this.setPosition1(0, -2);
+          this.setOrientation("Vertical");
+          break;
+        case "Vertical":
+          this.setPosition4(2, 0);
+          this.setPosition1(0, 2);
+          this.setOrientation("Horizontal");
+          break;
+      }
+    },
+    rotateZ() {
+      switch (this.position[4][0]) {
+        case "Horizontal":
+          this.setPosition3(-1, 0);
+          this.setPosition4(-1, -2);
+          this.setOrientation("Vertical");
+          break;
+        case "Vertical":
+          this.setPosition3(1, 0);
+          this.setPosition4(1, 2);
+          this.setOrientation("Horizontal");
+          break;
+      }
+    },
+    setPosition1: function (x_change, y_change) {
+      this.position[0][0] += x_change;
+      this.position[0][1] += y_change;
+    },
+    setPosition2: function (x_change, y_change) {
+      this.position[1][0] += x_change;
+      this.position[1][1] += y_change;
+    },
+    setPosition3: function (x_change, y_change) {
+      this.position[2][0] += x_change;
+      this.position[2][1] += y_change;
+    },
+    setPosition4: function (x_change, y_change) {
+      this.position[3][0] += x_change;
+      this.position[3][1] += y_change;
+    },
+    setOrientation: function (orientationValue) {
+      this.position[4][0] = orientationValue;
+    },
     getRandomShape() {
       let block_name = this.blocks[Math.floor(Math.random() * 7)];
       switch (block_name) {
@@ -60,66 +232,68 @@ var app = Vue.createApp({
           break;
       }
     },
-    // generateBlock: function() {
-    //   this.position = [[4,0]]
-    //   this.grid[4][0].color = 'green';
-    // },
     generateBlock: function() {
       var number = Math.floor(Math.random() * 7)
         if(number == 0){
           this.position = [[4, 0],[5, 0],[4, 1],[5, 1]],
-          this.grid[this.position[0][0]][this.position[0][1]].color = 'green';
-          this.grid[this.position[1][0]][this.position[1][1]].color = 'green';
-          this.grid[this.position[2][0]][this.position[2][1]].color = 'green';
-          this.grid[this.position[3][0]][this.position[3][1]].color = 'green';
+          this.currentBlock = 'O'
+          this.grid[this.position[0][0]][this.position[0][1]].color = 'O';
+          this.grid[this.position[1][0]][this.position[1][1]].color = 'O';
+          this.grid[this.position[2][0]][this.position[2][1]].color = 'O';
+          this.grid[this.position[3][0]][this.position[3][1]].color = 'O';
         }
         if(number == 1){
-          this.position = [[3, 0],[4, 0],[5, 0],[6, 0]]
-          this.grid[this.position[0][0]][this.position[0][1]].color = 'green';
-          this.grid[this.position[1][0]][this.position[1][1]].color = 'green';
-          this.grid[this.position[2][0]][this.position[2][1]].color = 'green';
-          this.grid[this.position[3][0]][this.position[3][1]].color = 'green';
+          this.position = [[3, 0], [4, 0], [5, 0], [6, 0], ["Horizontal"]];
+          this.currentBlock = 'I'
+          this.grid[this.position[0][0]][this.position[0][1]].color = 'I';
+          this.grid[this.position[1][0]][this.position[1][1]].color = 'I';
+          this.grid[this.position[2][0]][this.position[2][1]].color = 'I';
+          this.grid[this.position[3][0]][this.position[3][1]].color = 'I';
         }
         if(number == 2){
-          this.position = [[3, 1],[4, 1],[5, 1],[4, 0]]
-          this.grid[this.position[0][0]][this.position[0][1]].color = 'green';
-          this.grid[this.position[1][0]][this.position[1][1]].color = 'green';
-          this.grid[this.position[2][0]][this.position[2][1]].color = 'green';
-          this.grid[this.position[3][0]][this.position[3][1]].color = 'green';
+          this.position = [[3, 1], [4, 1], [5, 1], [4, 0], ["0"]];
+          this.currentBlock = 'T'
+          this.grid[this.position[0][0]][this.position[0][1]].color = 'T';
+          this.grid[this.position[1][0]][this.position[1][1]].color = 'T';
+          this.grid[this.position[2][0]][this.position[2][1]].color = 'T';
+          this.grid[this.position[3][0]][this.position[3][1]].color = 'T';
         }
         if(number == 3){
-          this.position = [[3, 0],[4, 0],[5, 0],[5, 1]]
-          this.grid[this.position[0][0]][this.position[0][1]].color = 'green';
-          this.grid[this.position[1][0]][this.position[1][1]].color = 'green';
-          this.grid[this.position[2][0]][this.position[2][1]].color = 'green';
-          this.grid[this.position[3][0]][this.position[3][1]].color = 'green';
+          this.position = [[3, 1], [4, 1], [5, 1], [5, 0], ["0"]];
+          this.currentBlock = 'L'
+          this.grid[this.position[0][0]][this.position[0][1]].color = 'L';
+          this.grid[this.position[1][0]][this.position[1][1]].color = 'L';
+          this.grid[this.position[2][0]][this.position[2][1]].color = 'L';
+          this.grid[this.position[3][0]][this.position[3][1]].color = 'L';
         }
         if(number == 4){
-          this.position = [[3, 0],[3, 1],[4, 1],[5, 1]]
-          this.grid[this.position[0][0]][this.position[0][1]].color = 'green';
-          this.grid[this.position[1][0]][this.position[1][1]].color = 'green';
-          this.grid[this.position[2][0]][this.position[2][1]].color = 'green';
-          this.grid[this.position[3][0]][this.position[3][1]].color = 'green';
+          this.position = [[3, 0], [3, 1], [4, 1], [5, 1], ["0"]];
+          this.currentBlock = 'J'
+          this.grid[this.position[0][0]][this.position[0][1]].color = 'J';
+          this.grid[this.position[1][0]][this.position[1][1]].color = 'J';
+          this.grid[this.position[2][0]][this.position[2][1]].color = 'J';
+          this.grid[this.position[3][0]][this.position[3][1]].color = 'J';
         }
         if(number == 5){
-          this.position = [[3, 1],[4, 1],[4, 0],[5, 0]]
-          this.grid[this.position[0][0]][this.position[0][1]].color = 'green';
-          this.grid[this.position[1][0]][this.position[1][1]].color = 'green';
-          this.grid[this.position[2][0]][this.position[2][1]].color = 'green';
-          this.grid[this.position[3][0]][this.position[3][1]].color = 'green';
+          this.position = [[3, 1], [4, 1], [4, 0], [5, 0], ["Horizontal"]];
+          this.currentBlock = 'S'
+          this.grid[this.position[0][0]][this.position[0][1]].color = 'S';
+          this.grid[this.position[1][0]][this.position[1][1]].color = 'S';
+          this.grid[this.position[2][0]][this.position[2][1]].color = 'S';
+          this.grid[this.position[3][0]][this.position[3][1]].color = 'S';
         }
         if(number == 6){
-          this.position = [[3, 0],[4, 0],[4, 1],[5, 1]]
-          this.grid[this.position[0][0]][this.position[0][1]].color = 'green';
-          this.grid[this.position[1][0]][this.position[1][1]].color = 'green';
-          this.grid[this.position[2][0]][this.position[2][1]].color = 'green';
-          this.grid[this.position[3][0]][this.position[3][1]].color = 'green';
+          this.position = [[3, 0], [4, 0], [4, 1], [5, 1], ["Horizontal"]];
+          this.currentBlock = 'Z'
+          this.grid[this.position[0][0]][this.position[0][1]].color = 'Z';
+          this.grid[this.position[1][0]][this.position[1][1]].color = 'Z';
+          this.grid[this.position[2][0]][this.position[2][1]].color = 'Z';
+          this.grid[this.position[3][0]][this.position[3][1]].color = 'Z';
         }
     },
     start: function() {
-      if (this.current_block == null) {
+      if (this.currentBlock == '') {
         this.generateBlock()
-        this.current_block = !null
       }
     },
     populateGrid() {
@@ -145,7 +319,8 @@ var app = Vue.createApp({
         this.position[i][1] += 1
       }
       for(let i=0;i<4;i++){
-        this.grid[this.position[i][0]][this.position[i][1]].color = 'green'
+        console.log(this.currentBlock)
+        this.grid[this.position[i][0]][this.position[i][1]].color = this.currentBlock;
       }
       this.check_location()
     },
@@ -156,7 +331,7 @@ var app = Vue.createApp({
         this.position[i][0] += 1
       }
       for(let i=0;i<4;i++){
-        this.grid[this.position[i][0]][this.position[i][1]].color = 'green'
+        this.grid[this.position[i][0]][this.position[i][1]].color = this.currentBlock
       }
       this.check_location()
     },
@@ -166,7 +341,7 @@ var app = Vue.createApp({
         this.position[i][0] -= 1
       }
       for(let i=0;i<4;i++){
-        this.grid[this.position[i][0]][this.position[i][1]].color = 'green'
+        this.grid[this.position[i][0]][this.position[i][1]].color = this.currentBlock
       }
       this.check_location()
     },

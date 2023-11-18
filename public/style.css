@@ -55,11 +55,30 @@ body {
   background-color: #6272a4;
 }
 
-.blue {
-  background-color: rgb(42, 81, 255);
+.O {
+  background-color: rgb(251, 255, 0);
 }
 
-.green {
-  background-color: green;
+.I {
+  background-color: rgb(0, 255, 234);
 }
 
+.T {
+  background-color: rgb(162, 0, 255);
+}
+
+.L {
+  background-color: rgb(255, 115, 0);
+}
+
+.J {
+  background-color: rgb(0, 76, 255);
+}
+
+.S {
+  background-color: rgb(88, 255, 88);
+}
+
+.Z {
+  background-color: rgb(255, 0, 0);
+}
